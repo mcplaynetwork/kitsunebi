@@ -4,3 +4,7 @@
 [submodule "configs/db"]
 	path = configs/db
 	url = https://github.com/mcplay-data/db.git
+[submodule "servers/vanilla"]
+	path = servers/vanilla
+	url = https://github.com/mcplay-data/vanilla.git
+	branch = upstream
