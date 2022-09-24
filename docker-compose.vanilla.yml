@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  vanilla:
+    image: itzg/minecraft-server:latest
+    restart: always
+    env_file:
+      - ./secrets/mariadb.env
+      - ./enviroments/minecraft.env
+      - ./enviroments/vanilla.env
+    networks:
+      - minecraft
+    volumes:
+      - ./servers/vanilla:/data:z
+      - ./configs/vanilla:/config
+      - ./plugins/vanilla:/plugins
+      - /etc/timezone:/etc/timezone:ro
+
+networks:
+  minecraft:
+    driver: bridge
