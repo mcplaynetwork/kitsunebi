@@ -1,0 +1,3 @@
+[submodule "configs/vanilla"]
+	path = configs/vanilla
+	url = https://github.com/mcplay-data/vanilla.git
