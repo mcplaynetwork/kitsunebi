@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb
+    restart: always
+    env_file:
+      - ./secrets/mariadb.env
+      - ./enviroments/db.env
+    networks:
+      - minecraft
+    volumes:
+      - ./databases/mariadb:/var/lib/mysql:Z
+      - ./configs/db/my.cnf:/etc/mysql/my.cnf
+
+networks:
+  minecraft:
+    driver: bridge
