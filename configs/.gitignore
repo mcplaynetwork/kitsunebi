@@ -1,0 +1,16 @@
+*
+
+# Allow directory
+!*/
+
+# Allow git files
+!.gitignore
+!.gitkeep
+
+# Allow extensions
+!*.cnf
+!*.json
+!*.properties
+!*.toml
+!*.txt
+!*.yml
