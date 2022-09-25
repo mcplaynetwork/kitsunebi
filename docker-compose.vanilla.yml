@@ -5,6 +5,8 @@ services:
     image: itzg/minecraft-server:latest
     command: --world-dir=/data/worlds
     restart: always
+    depends_on:
+      - db
     env_file:
       - ./secrets/mariadb.env
       - ./enviroments/minecraft.env
