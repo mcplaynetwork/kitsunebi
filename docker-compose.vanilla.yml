@@ -3,6 +3,7 @@ version: '3.8'
 services:
   vanilla:
     image: itzg/minecraft-server:latest
+    command: --world-dir=/data/worlds
     restart: always
     env_file:
       - ./secrets/mariadb.env
