@@ -7,10 +7,3 @@
 !.gitignore
 !.gitkeep
 
-# Allow extensions
-!*.cnf
-!*.json
-!*.properties
-!*.toml
-!*.txt
-!*.yml
