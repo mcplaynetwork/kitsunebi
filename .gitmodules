@@ -11,3 +11,7 @@
 [submodule "configs/proxy"]
 	path = configs/proxy
 	url = https://github.com/mcplay-data/proxy.git
+[submodule "servers/proxy"]
+	path = servers/proxy
+	url = https://github.com/mcplay-data/proxy.git
+	branch = upstream
