@@ -8,3 +8,6 @@
 	path = servers/vanilla
 	url = https://github.com/mcplay-data/vanilla.git
 	branch = upstream
+[submodule "configs/proxy"]
+	path = configs/proxy
+	url = https://github.com/mcplay-data/proxy.git
