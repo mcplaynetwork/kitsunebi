@@ -2,3 +2,7 @@
 	path = servers/proxy
 	url = git@github.com:mcplay-data/proxy.git
 	branch = master
+[submodule "servers/proxy-ext-1"]
+	path = servers/proxy-ext-1
+	url = git@github.com:mcplay-data/proxy-ext-1.git
+	branch = master
