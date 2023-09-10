@@ -1,17 +1,17 @@
 [submodule "configs/vanilla"]
 	path = configs/vanilla
-	url = https://github.com/mcplay-data/vanilla.git
+	url = git@github.com:mcplay-data/vanilla.git
 [submodule "configs/db"]
 	path = configs/db
-	url = https://github.com/mcplay-data/db.git
+	url = git@github.com:mcplay-data/db.git
 [submodule "servers/vanilla"]
 	path = servers/vanilla
-	url = https://github.com/mcplay-data/vanilla.git
-	branch = upstream
+	url = git@github.com:mcplay-data/vanilla.git
+	branch = master
 [submodule "configs/proxy"]
 	path = configs/proxy
-	url = https://github.com/mcplay-data/proxy.git
+	url = git@github.com:mcplay-data/proxy.git
 [submodule "servers/proxy"]
 	path = servers/proxy
-	url = https://github.com/mcplay-data/proxy.git
-	branch = upstream
+	url = git@github.com:mcplay-data/proxy.git
+	branch = master
