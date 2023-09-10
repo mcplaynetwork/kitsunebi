@@ -3,8 +3,8 @@ version: '3.8'
 services:
   proxy:
     image: itzg/bungeecord:latest
+    container_name: proxy-ext-1
     env_file:
-      - ./enviroments/minecraft.env
       - ./enviroments/proxy.env
     ports:
       - 25565:25577
