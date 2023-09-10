@@ -4,12 +4,10 @@ services:
   proxy:
     image: itzg/bungeecord:latest
     env_file:
-      - ./secrets/mariadb.env
       - ./enviroments/minecraft.env
       - ./enviroments/proxy.env
     ports:
       - 25565:25577
     volumes:
-      - ./configs/proxy:/config
       - ./plugins/proxy:/plugins
       - ./servers/proxy:/server

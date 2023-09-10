@@ -6,11 +6,9 @@ services:
     command: --world-dir=/data/worlds
     restart: always
     env_file:
-      - ./secrets/mariadb.env
       - ./enviroments/minecraft.env
       - ./enviroments/vanilla.env
     volumes:
       - ./servers/vanilla:/data:z
-      - ./configs/vanilla:/config
       - ./plugins/vanilla:/plugins
       - /etc/timezone:/etc/timezone:ro
