@@ -3,21 +3,13 @@ version: '3.8'
 services:
   proxy:
     image: itzg/bungeecord:latest
-    depends_on:
-      - db
     env_file:
       - ./secrets/mariadb.env
       - ./enviroments/minecraft.env
       - ./enviroments/proxy.env
     ports:
       - 25565:25577
-    networks:
-      - minecraft
     volumes:
       - ./configs/proxy:/config
       - ./plugins/proxy:/plugins
       - ./servers/proxy:/server
-
-networks:
-  minecraft:
-    driver: bridge
