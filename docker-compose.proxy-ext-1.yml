@@ -6,6 +6,7 @@ services:
     container_name: proxy-ext-1
     env_file:
       - ./enviroments/proxy.env
+      - ./enviroments/hosts.env
       - ./secrets/mysql.env
       - ./secrets/redis.env
     ports:
