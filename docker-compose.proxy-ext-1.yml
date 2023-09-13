@@ -8,7 +8,6 @@ services:
       - ./enviroments/proxy.env
       - ./enviroments/hosts.env
       - ./secrets/mysql.env
-      - ./secrets/redis.env
     ports:
       - 25565:25577
     volumes:
