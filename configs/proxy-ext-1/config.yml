@@ -1,0 +1,54 @@
+enforce_secure_profile: false
+remote_ping_cache: -1
+network_compression_threshold: 256
+log_pings: false
+connection_throttle_limit: 3
+server_connect_timeout: 5000
+timeout: 30000
+player_limit: -1
+prevent_proxy_connections: false
+ip_forward: true
+remote_ping_timeout: 5000
+connection_throttle: 4000
+log_commands: false
+stats: 40af276d-c18f-4058-8695-4fa801f80931
+online_mode: true
+forge_support: true
+listeners:
+- query_port: 25577
+  motd: |
+    &f□ &3MCPLAYNETWORK &f□
+    &a proxy-ext-1
+  tab_list: SERVER
+  query_enabled: false
+  proxy_protocol: false
+  forced_hosts:
+    mcplay.biz: hub
+  ping_passthrough: true
+  priorities:
+    - hub
+  bind_local_address: true
+  host: 0.0.0.0:25577
+  max_players: 1024
+  tab_size: 60
+  force_default_server: false
+permissions:
+  default:
+    - bungeecord.command.server
+    - bungeecord.command.list
+  admin:
+    - bungeecord.command.alert
+    - bungeecord.command.end
+    - bungeecord.command.ip
+    - bungeecord.command.reload
+    - bungeecord.command.kick
+groups:
+  viasnake:
+    - admin
+disabled_commands:
+  - disabledcommandhere
+servers:
+  hub:
+    motd: '&f□ &bMCPLAYNETWORK &f□'
+    address: 10.200.0.1:25570
+    restricted: false

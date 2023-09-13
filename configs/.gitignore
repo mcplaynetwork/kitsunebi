@@ -1,9 +1,0 @@
-*
-
-# Allow directory
-!*/
-
-# Allow git files
-!.gitignore
-!.gitkeep
-

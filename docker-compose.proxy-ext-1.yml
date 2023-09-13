@@ -9,5 +9,6 @@ services:
     ports:
       - 25565:25577
     volumes:
+      - ./configs/proxy-ext-1:/config
       - ./plugins/proxy-ext-1:/plugins
       - ./servers/proxy-ext-1:/server
