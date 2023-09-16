@@ -21,7 +21,7 @@ listeners:
     &a proxy-ext-1
   tab_list: SERVER
   query_enabled: false
-  proxy_protocol: false
+  proxy_protocol: true
   forced_hosts:
     mcplay.biz: hub
   ping_passthrough: true
