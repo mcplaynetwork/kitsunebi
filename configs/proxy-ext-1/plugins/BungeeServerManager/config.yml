@@ -29,7 +29,7 @@ ServerPing:
 General:
   HubCommands: hub;lobby
   AutoUpdater: true
-  ForceServers: false
+  ForceServers: true
   EnableOnlineOfflineCheck: true
   OnlineOfflineCheckDelay: 10
 
