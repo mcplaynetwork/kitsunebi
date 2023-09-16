@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  proxy:
+    image: itzg/bungeecord:latest
+    container_name: proxy-main-1
+    env_file:
+      - ./enviroments/proxy-main-1.env
+      - ./enviroments/hosts.env
+      - ./secrets/mysql.env
+    ports:
+      - 25565:25577
+    volumes:
+      - ./configs/proxy-main-1:/config
+      - ./plugins/proxy-main-1:/plugins
+      - ./servers/proxy-main-1:/server
