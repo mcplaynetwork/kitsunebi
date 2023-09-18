@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  proxy:
+  proxy-ext-1:
     image: itzg/bungeecord:latest
     container_name: proxy-ext-1
     env_file:
