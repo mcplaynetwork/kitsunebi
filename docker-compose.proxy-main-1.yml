@@ -9,7 +9,7 @@ services:
       - ./enviroments/hosts.env
       - ./secrets/mysql.env
     ports:
-      - 25565:25577
+      - 25565:25565
     volumes:
       - ./configs/proxy-main-1:/config
       - ./plugins/proxy-main-1:/plugins
