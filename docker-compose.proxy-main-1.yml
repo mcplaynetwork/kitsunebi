@@ -5,6 +5,7 @@ name: proxy-main-1
 services:
   proxy:
     image: itzg/bungeecord:latest
+    container_name: proxy-main-1
     env_file:
       - ./enviroments/proxy-main-1.env
       - ./enviroments/hosts.env
