@@ -6,6 +6,7 @@ services:
   proxy:
     image: itzg/bungeecord:latest
     container_name: proxy-main-1
+    restart: always
     env_file:
       - ./enviroments/proxy-main-1.env
       - ./enviroments/hosts.env
