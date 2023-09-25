@@ -1,32 +1,20 @@
 #!/bin/bash
 
-while getopts ":common" opt; do
-  case $opt in
-  common)
-    copy_common=true
-    ;;
-  \?)
-    echo "Error: Invalid option: -$OPTARG" >&2
-    exit 1
-    ;;
-  esac
-done
-
-shift $((OPTIND - 1))
-
-subdirectory="$1"
-
-local_dir="$HOME/dist/$1"
-
-remote_server="username@remote_server_address"
-remote_dir="/remote_directory_path/$1"
-
-if [ -z "$1" ] || [ ! -d "$local_dir" ]; then
-  echo "Error: Please specify a valid subdirectory name."
+if [ -z "$1" ]; then
+  echo "Error: Please specify a directory name."
   exit 1
 fi
 
-rsync -av --delete --exclude='*' --include='*.jar' "$local_dir/" "$remote_server:$remote_dir/"
+dest_dir="$HOME/data/$1"
+source_dir="~/dist/$1"
+dist_server="ubuntu@10.0.50.2"
+
+if [ ! -d "$dest_dir" ]; then
+  echo "Error: Destination directory '$dest_dir' does not exist."
+  exit 1
+fi
+
+rsync -av --delete --exclude='*/' --include='*.jar' "$dist_server:$source_dir/" "$dest_dir/plugins/"
 
 if [ $? -eq 0 ]; then
   echo "Success: Jar files copied successfully."
