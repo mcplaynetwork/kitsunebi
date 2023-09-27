@@ -10,7 +10,7 @@ source "./secrets/hosts.env"
 dest_dir="$HOME/data/$1"
 source_dir="~/kitsune-hub/dist/$1"
 source "./secrets/hosts.env"
-dist_server="$HOST_ADMIN_USER@$HOST_ADMIN"
+dist_server="$HOST_ADMIN_USER@10.0.50.2"
 
 if [ ! -d "$dest_dir" ]; then
   echo "Error: Destination directory '$dest_dir' does not exist."
