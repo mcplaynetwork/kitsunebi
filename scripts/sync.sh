@@ -14,7 +14,7 @@ if [ ! -d "$dest_dir" ]; then
   exit 1
 fi
 
-rsync -av --delete --exclude='*/' --include='*.jar' "$dist_server:$source_dir/" "$dest_dir/plugins/"
+rsync -av --delete --exclude='*/' --include='*.jar' --include='list.txt' "$dist_server:$source_dir/" "$dest_dir/plugins/"
 
 if [ $? -eq 0 ]; then
   echo "Success: Jar files copied successfully."
