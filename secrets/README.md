@@ -12,9 +12,8 @@ CFG_MYSQL_DATABASE=
 CFG_MYSQL_PASSWORD=
 ```
 
-## hosts.env
+## users.env
 
 ```plain
-HOST_ADMIN=
-HOST_ADMIN_USER=
+ADMIN_USER=
 ```

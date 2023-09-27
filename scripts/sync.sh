@@ -5,12 +5,12 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-source "./secrets/hosts.env"
+source "./secrets/users.env"
 
 dest_dir="$HOME/data/$1"
 source_dir="~/kitsune-hub/dist/$1"
 source "./secrets/hosts.env"
-dist_server="$HOST_ADMIN_USER@10.0.50.2"
+dist_server="$ADMIN_USER@10.0.50.2"
 
 if [ ! -d "$dest_dir" ]; then
   echo "Error: Destination directory '$dest_dir' does not exist."
