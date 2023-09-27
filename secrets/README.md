@@ -11,3 +11,10 @@ CFG_MYSQL_USER=
 CFG_MYSQL_DATABASE=
 CFG_MYSQL_PASSWORD=
 ```
+
+## hosts.env
+
+```plain
+HOST_ADMIN=
+HOST_ADMIN_USER=
+```
