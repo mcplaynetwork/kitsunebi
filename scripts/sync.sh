@@ -6,7 +6,7 @@ if [ -z "$1" ]; then
 fi
 
 dest_dir="$HOME/data/$1"
-source_dir="~/dist/$1"
+source_dir="~/kitsune-hub/dist/$1"
 dist_server="ubuntu@10.0.50.2"
 
 if [ ! -d "$dest_dir" ]; then
