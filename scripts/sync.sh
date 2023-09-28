@@ -15,7 +15,7 @@ if [ -z "$1" ]; then
   echo "No directory name specified. Copying all matching directories."
 
   for dest_dir in "$dest_base_dir"/*; do
-    if [ ! -d "$source_dir" ]; then
+    if [ ! -d "$dest_dir" ]; then
       echo "Error: Destination directory '$dest_dir' does not exist."
       exit 1
     fi
