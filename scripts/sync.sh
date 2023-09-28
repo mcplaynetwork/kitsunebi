@@ -1,6 +1,12 @@
 #!/bin/bash
 
-source "./secrets/users.env"
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 <password> [directory_name]"
+  exit 1
+fi
+
+password="$1"
+directory_name="$2"
 
 dist_server="$ADMIN_USER@10.0.50.2"
 dest_base_dir="$HOME/data"
@@ -11,7 +17,7 @@ if [ ! -d "$dest_base_dir" ]; then
   exit 1
 fi
 
-if [ -z "$1" ]; then
+if [ -z "$directory_name" ]; then
   echo "No directory name specified. Copying all matching directories."
 
   for dest_dir in "$dest_base_dir"/*; do
@@ -23,7 +29,7 @@ if [ -z "$1" ]; then
     dest_dir="$dest_base_dir/$dir_name"
     source_dir="$source_base_dir/$dir_name"
 
-    rsync -av --delete --exclude='*/' --include='*.jar' --include='list.txt' "$dist_server:$source_dir/" "$dest_dir/plugins/"
+    sshpass -p "$password" rsync -av --delete --exclude='*/' --include='*.jar' --include='list.txt' "$dist_server:$source_dir/" "$dest_dir/plugins/"
 
     if [ $? -eq 0 ]; then
       echo "Success: Jar files from '$dir_name' copied successfully."
@@ -32,15 +38,15 @@ if [ -z "$1" ]; then
     fi
   done
 else
-  dest_dir="$dest_base_dir/$1"
-  source_dir="$source_base_dir/$1"
+  dest_dir="$dest_base_dir/$directory_name"
+  source_dir="$source_base_dir/$directory_name"
 
   if [ ! -d "$dest_dir" ]; then
     echo "Error: Destination directory '$dest_dir' does not exist."
     exit 1
   fi
 
-  rsync -av --delete --exclude='*/' --include='*.jar' --include='list.txt' "$dist_server:$source_dir/" "$dest_dir/plugins/"
+  sshpass -p "$password" rsync -av --delete --exclude='*/' --include='*.jar' --include='list.txt' "$dist_server:$source_dir/" "$dest_dir/plugins/"
 
   if [ $? -eq 0 ]; then
     echo "Success: Jar files copied successfully."
