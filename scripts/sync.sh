@@ -5,6 +5,8 @@ if [ $# -lt 1 ]; then
   exit 1
 fi
 
+source "./secrets/users.env"
+
 password="$1"
 directory_name="$2"
 
