@@ -12,7 +12,7 @@ directory_name="$2"
 
 dist_server="$ADMIN_USER@10.0.50.2"
 dest_base_dir="$HOME/data"
-source_base_dir="~/kitsune-hub/dist"
+source_base_dir="~/kitsune-core/dist"
 
 if [ ! -d "$dest_base_dir" ]; then
   echo "Error: Destination base directory '$dest_base_dir' does not exist."
