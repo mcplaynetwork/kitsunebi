@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ $# -lt 1 ]; then
-  echo "Usage: $0 <password> [directory_name]"
-  exit 1
-fi
+# if [ $# -lt 1 ]; then
+#   echo "Usage: $0 <password> [directory_name]"
+#   exit 1
+# fi
 
 source "$HOME/kitsune-core/secrets/users.env"
 
