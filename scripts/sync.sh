@@ -7,8 +7,7 @@ fi
 
 source "$HOME/kitsune-core/secrets/users.env"
 
-password="$1"
-directory_name="$2"
+directory_name="$1"
 
 dist_server="$ADMIN_USER@10.0.50.2"
 dest_base_dir="$HOME/data"
@@ -31,7 +30,7 @@ if [ -z "$directory_name" ]; then
     dest_dir="$dest_base_dir/$dir_name"
     source_dir="$source_base_dir/$dir_name"
 
-    sshpass -p "$password" rsync -av --delete --exclude='*/' --include='*.jar' --include='list.txt' "$dist_server:$source_dir/" "$dest_dir/plugins/"
+    sshpass -p "$ADMIN_PASSWORD" rsync -av --delete --exclude='*/' --include='*.jar' --include='list.txt' "$dist_server:$source_dir/" "$dest_dir/plugins/"
 
     if [ $? -eq 0 ]; then
       echo "Success: Jar files from '$dir_name' copied successfully."
@@ -48,7 +47,7 @@ else
     exit 1
   fi
 
-  sshpass -p "$password" rsync -av --delete --exclude='*/' --include='*.jar' --include='list.txt' "$dist_server:$source_dir/" "$dest_dir/plugins/"
+  sshpass -p "$ADMIN_PASSWORD" rsync -av --delete --exclude='*/' --include='*.jar' --include='list.txt' "$dist_server:$source_dir/" "$dest_dir/plugins/"
 
   if [ $? -eq 0 ]; then
     echo "Success: Jar files copied successfully."
