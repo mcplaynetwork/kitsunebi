@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIST_DIR="$HOME/kitsune-core/dist"
+DIST_DIR="$HOME/kitsunebi/dist"
 
 for repo_dir in "$DIST_DIR"/*; do
   if [ -d "$repo_dir" ]; then

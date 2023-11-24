@@ -5,13 +5,13 @@
 #   exit 1
 # fi
 
-source "$HOME/kitsune-core/secrets/users.env"
+source "$HOME/kitsunebi/secrets/users.env"
 
 directory_name="$1"
 
 dist_server="$ADMIN_USER@10.0.50.2"
 dest_base_dir="$HOME/data"
-source_base_dir="~/kitsune-core/dist"
+source_base_dir="~/kitsunebi/dist"
 
 if [ ! -d "$dest_base_dir" ]; then
   echo "Error: Destination base directory '$dest_base_dir' does not exist."
