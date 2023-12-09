@@ -16,4 +16,4 @@ services:
     volumes:
       - ./configs/proxy-main-1:/config
       - ./plugins/proxy-main-1:/plugins
-      - ./servers/proxy-main-1:/server
+      - ./data/proxy-main-1:/server

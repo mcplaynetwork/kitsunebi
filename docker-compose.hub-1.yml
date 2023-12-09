@@ -16,4 +16,4 @@ services:
     volumes:
       - ./configs/hub-1:/config
       - ./plugins/hub-1:/plugins
-      - ./servers/hub-1:/data
+      - ./data/hub-1:/data
