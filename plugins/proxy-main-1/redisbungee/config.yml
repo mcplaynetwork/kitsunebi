@@ -3,7 +3,7 @@
 
 # The Redis server you use.
 # these settings are ignored when cluster mode is enabled.
-redis-server: 10.210.4.2
+redis-server: ${CFG_REDIS_HOST}
 redis-port: 6379
 
 # Cluster Mode
