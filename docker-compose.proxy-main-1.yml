@@ -18,3 +18,14 @@ services:
       - ./configs/proxy-main-1:/config
       - ./plugins/proxy-main-1:/plugins
       - ./data/proxy-main-1:/server
+
+  backend:
+    image: itzg/minecraft-server:latest
+    container_name: limbo
+    restart: unless-stopped
+    user: 1001:1001
+    env_file:
+      - ./enviroments/limbo.env
+    volumes:
+      - ./configs/limbo:/config
+      - ./data/limbo:/data
