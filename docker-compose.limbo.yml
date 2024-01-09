@@ -1,0 +1,17 @@
+version: "3.8"
+
+name: limbo
+
+services:
+  backend:
+    image: itzg/minecraft-server:latest
+    container_name: limbo
+    restart: unless-stopped
+    user: 1001:1001
+    env_file:
+      - ./enviroments/limbo.env
+    ports:
+      - 25565:65535
+    volumes:
+      - ./configs/limbo:/config
+      - ./data/limbo:/data
