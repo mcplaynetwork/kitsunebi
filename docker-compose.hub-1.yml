@@ -14,6 +14,6 @@ services:
     ports:
       - 25570:25565
     volumes:
-      - ./configs/hub-1:/config
-      - ./plugins/hub-1:/plugins
-      - ./data/hub-1:/data
+      - ./configs/backend-hub-1:/config
+      - ./plugins/backend-hub-1:/plugins
+      - ./data/backend-hub-1:/data
