@@ -1,11 +1,11 @@
 version: '3.8'
 
-name: hub-1
+name: backend-hub-1
 
 services:
   backend:
     image: itzg/minecraft-server:latest
-    container_name: hub-1
+    container_name: backend-hub-1
     restart: unless-stopped
     env_file:
       - ./enviroments/backend-hub-1.env
