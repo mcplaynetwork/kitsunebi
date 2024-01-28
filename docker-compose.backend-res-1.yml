@@ -13,7 +13,7 @@ services:
       - ./enviroments/hosts.env
       - ./secrets/mysql.env
     ports:
-      - 25570:25565
+      - 25571:25565
     volumes:
       - ./configs/backend-res-1:/config
       - ./plugins/backend-res-1:/plugins
