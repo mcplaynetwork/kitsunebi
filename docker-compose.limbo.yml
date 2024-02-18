@@ -8,6 +8,8 @@ services:
     container_name: limbo
     restart: unless-stopped
     user: 1001:1001
+    environment:
+      - TZ=Asia/Tokyo
     env_file:
       - ./enviroments/limbo.env
     ports:
