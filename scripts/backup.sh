@@ -23,6 +23,7 @@ load_env() {
 perform_backup() {
   local dir="$1"
   local env_file="$dir/.env"
+  local exclude_file="$dir/.EXCLUDES"
 
   log_message "INFO" "Starting backup for directory: $dir"
 
@@ -40,8 +41,12 @@ perform_backup() {
   # Check if restic repository is initialized
   check_restic_initialized || return 1
 
-  # Perform the backup
-  restic backup "$dir"
+  # Perform the backup with exclude-file if available
+  if [ -f "$exclude_file" ]; then
+    restic backup --exclude-file="$exclude_file" "$dir"
+  else
+    restic backup "$dir"
+  fi
 
   # Check the exit code of restic
   backup_exit_code=$?
