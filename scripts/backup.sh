@@ -15,18 +15,7 @@ load_env() {
     source "$env_file"
   else
     log_message "ERROR" "$env_file not found"
-    exit 1
-  fi
-}
-
-# Function to check if restic repository is initialized
-check_restic_initialized() {
-  restic snapshots >/dev/null 2>&1
-  if [ $? -eq 0 ]; then
-    log_message "INFO" "Restic repository is initialized"
-  else
-    log_message "ERROR" "Restic repository is not initialized"
-    exit 1
+    return 1
   fi
 }
 
@@ -37,16 +26,19 @@ perform_backup() {
 
   log_message "INFO" "Starting backup for directory: $dir"
 
-  load_env "$env_file"
+  load_env "$env_file" || {
+    log_message "WARNING" "Skipping backup for directory $dir due to missing or unreadable .env file"
+    return
+  }
 
   # Check if required environment variables are set
   if [ -z "$B2_ACCOUNT_ID" ] || [ -z "$B2_ACCOUNT_KEY" ] || [ -z "$RESTIC_REPOSITORY" ] || [ -z "$RESTIC_PASSWORD" ]; then
     log_message "ERROR" "Required environment variables are not set in $env_file"
-    exit 1
+    return 1
   fi
 
   # Check if restic repository is initialized
-  check_restic_initialized
+  check_restic_initialized || return 1
 
   # Perform the backup
   restic backup "$dir"
@@ -57,6 +49,17 @@ perform_backup() {
     log_message "INFO" "Backup completed for directory: $dir"
   else
     log_message "ERROR" "Backup failed for directory: $dir"
+  fi
+}
+
+# Function to check if restic repository is initialized
+check_restic_initialized() {
+  restic snapshots >/dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    log_message "INFO" "Restic repository is initialized"
+  else
+    log_message "ERROR" "Restic repository is not initialized"
+    return 1
   fi
 }
 
