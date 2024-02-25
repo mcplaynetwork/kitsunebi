@@ -19,6 +19,17 @@ load_env() {
   fi
 }
 
+# Function to check if restic repository is initialized
+check_restic_initialized() {
+  restic snapshots >/dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    log_message "INFO" "Restic repository is initialized"
+  else
+    log_message "ERROR" "Restic repository is not initialized"
+    exit 1
+  fi
+}
+
 # Function to perform backup for a directory
 perform_backup() {
   local dir="$1"
@@ -34,11 +45,8 @@ perform_backup() {
     exit 1
   fi
 
-  # Initialize the repository if it doesn't exist
-  restic list snapshots >/dev/null 2>&1
-  if [ $? -ne 0 ]; then
-    restic init
-  fi
+  # Check if restic repository is initialized
+  check_restic_initialized
 
   # Perform the backup
   restic backup "$dir"
