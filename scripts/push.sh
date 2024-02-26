@@ -1,14 +1,14 @@
 #!/bin/bash
 
-data_dir="$HOME/data"
+data_dir="/opt/kitsunebi/data"
 
-for repo_dir in $HOME/data/*; do
-  if [ -d "$repo_dir/.git" ]; then
-    echo "Processing Git repository in: $repo_dir"
-    cd "$repo_dir" || exit 1
+for dir in $data_dir/*; do
+  if [ -d "$dir/.git" ]; then
+    echo "Processing Git repository in: $dir"
+    cd "$dir" || exit 1
 
     git push
 
-    echo "Completed pushing changes to repository in: $repo_dir"
+    echo "Completed pushing changes to repository in: $dir"
   fi
 done
