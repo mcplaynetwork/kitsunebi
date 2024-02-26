@@ -102,4 +102,4 @@ Perform() {
   Logger "INFO" "Commit completed for directory: $dir"
 }
 
-Main "$dir"
+Main "$BASE_DIR"
