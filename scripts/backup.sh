@@ -47,11 +47,15 @@ perform_backup() {
   # Check if restic repository is initialized
   check_restic_initialized || return 1
 
+  # ディレクトリ名から tag を生成
+  local tag=$(basename "$dir")
+  log_message "INFO" "Tag: $tag"
+
   # Perform the backup with exclude-file if available
   if [ -f "$exclude_file" ]; then
-    restic backup --exclude-file="$exclude_file" "$dir"
+    restic backup --tag "$tag" --exclude-file="$exclude_file" "$dir"
   else
-    restic backup "$dir"
+    restic backup --tag "$tag" "$dir"
   fi
 
   # Check the exit code of restic
