@@ -22,9 +22,16 @@ load_env() {
 # Function to perform backup for a directory
 perform_backup() {
   local dir="$1"
+  local backup_file="$dir/.backup"
   local exclude_file="/opt/kitsunebi/configs/scripts/backup-excludes"
 
   log_message "INFO" "Starting backup for directory: $dir"
+
+  # Check if backup file exists
+  if [ ! -f "$backup_file" ]; then
+    log_message "INFO" "Skipping backup for directory: $dir"
+    return 0
+  fi
 
   load_env || {
     log_message "ERROR" "Failed to load environment variables"
