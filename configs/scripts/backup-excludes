@@ -1,4 +1,11 @@
 *.jar
+*.old
 *.tmp
-logs
-lang
+data/**/.cache
+data/**/.git
+data/**/?
+data/**/cache
+data/**/lang
+data/**/libraries
+data/**/logs
+data/**/versions
