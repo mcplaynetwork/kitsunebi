@@ -22,7 +22,7 @@ load_env() {
 # Function to perform backup for a directory
 perform_backup() {
   local dir="$1"
-  local exclude_file="$dir/.EXCLUDES"
+  local exclude_file="/opt/kitsunebi/configs/scripts/backup-excludes"
 
   log_message "INFO" "Starting backup for directory: $dir"
 
