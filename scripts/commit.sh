@@ -82,7 +82,7 @@ Perform() {
 
   # リモートリポジトリの URL
   local remote_url=$(git remote get-url origin)
-  local remote_url_with_token="https://$GITHUB_PERSONAL_ACCESS_TOKEN@$(echo $remote_url | sed -E 's|^(https?://)|\1'"$GITHUB_PERSONAL_ACCESS_TOKEN"':@|')"
+  local remote_url_with_token=$(echo "$remote_url" | sed -E "s|^(https?://)|\1$GITHUB_PERSONAL_ACCESS_TOKEN@|")
 
   # リモートリポジトリの URL を書き換え
   git remote set-url origin "$remote_url_with_token"
