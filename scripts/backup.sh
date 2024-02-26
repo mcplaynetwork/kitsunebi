@@ -10,7 +10,7 @@ log_message() {
 
 # Function to load environment variables from .env file
 load_env() {
-  local env_file="$1"
+  local env_file="/opt/kitsunebi/secrets/restic.env"
   if [ -f "$env_file" ]; then
     source "$env_file"
   else
@@ -22,19 +22,18 @@ load_env() {
 # Function to perform backup for a directory
 perform_backup() {
   local dir="$1"
-  local env_file="$dir/.env"
   local exclude_file="$dir/.EXCLUDES"
 
   log_message "INFO" "Starting backup for directory: $dir"
 
-  load_env "$env_file" || {
-    log_message "WARNING" "Skipping backup for directory $dir due to missing or unreadable .env file"
-    return
+  load_env || {
+    log_message "ERROR" "Failed to load environment variables"
+    return 1
   }
 
   # Check if required environment variables are set
   if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$RESTIC_REPOSITORY" ] || [ -z "$RESTIC_PASSWORD" ]; then
-    log_message "ERROR" "Required environment variables are not set in $env_file"
+    log_message "ERROR" "Required environment variables are not set"
     return 1
   fi
 
@@ -91,7 +90,6 @@ backup_directories() {
   log_message "INFO" "=== Backup completed for all directories in: $base_dir ==="
 }
 
-# Specify the base directory containing subdirectories to be backed up
 BASE_DIR="/opt/kitsunebi/data"
 
 # Perform backup for directories
