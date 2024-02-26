@@ -8,7 +8,7 @@ for dir in $data_dir/*; do
     cd "$dir" || exit 1
 
     git add .
-    git commit -m "kitsunebi: `date +'%Y-%m-%d %H:%M:%S'`" -m "`git diff --name-only --staged`"
+    git commit -m "kitsunebi: `date +'%Y-%m-%d %H:%M:%S'`"
 
     echo "Completed processing repository in: $dir"
   fi
