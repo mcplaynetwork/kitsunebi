@@ -60,7 +60,7 @@ Main() {
   for dir in "$dir"/*; do
     # ディレクトリの場合のみ処理を実行
     if [ -d "$dir" ]; then
-      perform "$dir"
+     Perform "$dir"
     fi
   done
 
