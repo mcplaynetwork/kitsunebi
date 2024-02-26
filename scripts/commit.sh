@@ -16,7 +16,7 @@ Load_env() {
   if [ -f "$ENV_FILE" ]; then
     source "$ENV_FILE"
   else
-    log_message "ERROR" "$ENV_FILE not found"
+    Logger "ERROR" "$ENV_FILE not found"
     return 1
   fi
 }
