@@ -1,107 +1,142 @@
 #!/bin/bash
 
-# Function to log messages
-log_message() {
+BASE_DIR="/opt/kitsunebi/data"
+ENV_FILE="/opt/kitsunebi/secrets/restic.env"
+EXCLUDE_FILE="/opt/kitsunebi/configs/scripts/backup-excludes"
+
+# START: common functions
+Logger() {
   local log_level="$1"
   local message="$2"
   local timestamp=$(date +'%Y-%m-%d %H:%M:%S')
   echo "[$timestamp] [$log_level] - $message"
 }
 
-# Function to load environment variables from .env file
-load_env() {
-  local env_file="/opt/kitsunebi/secrets/restic.env"
-  if [ -f "$env_file" ]; then
-    source "$env_file"
+Load_env() {
+  if [ -f "$ENV_FILE" ]; then
+    source "$ENV_FILE"
   else
-    log_message "ERROR" "$env_file not found"
+    Logger "ERROR" "$ENV_FILE not found"
     return 1
   fi
 }
 
-# Function to perform backup for a directory
-perform_backup() {
-  local dir="$1"
-  local backup_file="$dir/.backup"
-  local exclude_file="/opt/kitsunebi/configs/scripts/backup-excludes"
-
-  log_message "INFO" "Starting backup for directory: $dir"
-
-  # Check if backup file exists
-  if [ ! -f "$backup_file" ]; then
-    log_message "INFO" "Skipping backup for directory: $dir"
-    return 0
-  fi
-
-  load_env || {
-    log_message "ERROR" "Failed to load environment variables"
+Check_env() {
+  if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$RESTIC_REPOSITORY" ] || [ -z "$RESTIC_PASSWORD" ]; then
+    Logger "ERROR" "Required environment variables are not set"
     return 1
+  fi
+}
+
+Check_directory_exists() {
+  local dir="$1"
+  if [ ! -d "$dir" ]; then
+    Logger "ERROR" "Directory $dir not found"
+    return 1
+  fi
+}
+
+Check_file_exists() {
+  local file="$1"
+  if [ ! -f "$file" ]; then
+    Logger "ERROR" "File $file not found"
+    return 1
+  fi
+}
+
+# END: common functions
+
+Check_restic_initialized() {
+  restic snapshots >/dev/null 2>&1
+
+  if [ $? -eq 0 ]; then
+    Logger "INFO" "Restic repository is initialized"
+  else
+    Logger "ERROR" "Restic repository is not initialized"
+    return 1
+  fi
+}
+
+Get_tag() {
+  local dir="$1"
+  local tag=$(basename "$dir")
+
+  Logger "INFO" "Tag: $(basename "$dir")"
+  echo "$tag"
+}
+
+Main() {
+  local dir="$1"
+
+  Logger "INFO" "=== Starting backup for all directories in: $dir ==="
+
+  # ディレクトリが存在するか確認
+  Check_directory_exists "$dir" || {
+    exit 1
   }
 
-  # Check if required environment variables are set
-  if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$RESTIC_REPOSITORY" ] || [ -z "$RESTIC_PASSWORD" ]; then
-    log_message "ERROR" "Required environment variables are not set"
-    return 1
-  fi
-
-  # Check if restic repository is initialized
-  check_restic_initialized || return 1
-
-  # ディレクトリ名から tag を生成
-  local tag=$(basename "$dir")
-  log_message "INFO" "Tag: $tag"
-
-  # Perform the backup with exclude-file if available
-  if [ -f "$exclude_file" ]; then
-    restic backup --tag "$tag" --exclude-file="$exclude_file" "$dir"
-  else
-    restic backup --tag "$tag" "$dir"
-  fi
-
-  # Check the exit code of restic
-  backup_exit_code=$?
-  if [ $backup_exit_code -eq 0 ]; then
-    log_message "INFO" "Backup completed for directory: $dir"
-  else
-    log_message "ERROR" "Backup failed for directory: $dir"
-  fi
-}
-
-# Function to check if restic repository is initialized
-check_restic_initialized() {
-  restic snapshots >/dev/null 2>&1
-  if [ $? -eq 0 ]; then
-    log_message "INFO" "Restic repository is initialized"
-  else
-    log_message "ERROR" "Restic repository is not initialized"
-    return 1
-  fi
-}
-
-# Main function to backup directories
-backup_directories() {
-  local base_dir="$1"
-
-  log_message "INFO" "=== Starting backup for all directories in: $base_dir ==="
-
-  # Check if base directory exists
-  if [ ! -d "$base_dir" ]; then
-    log_message "ERROR" "Base directory $base_dir not found"
-    exit 1
-  fi
-
-  # Loop through each subdirectory in the base directory
-  for dir in "$base_dir"/*; do
-    # Check if it's a directory
+  # ディレクトリ内の全てのディレクトリに対して処理を実行
+  for dir in "$dir"/*; do
+    # ディレクトリの場合のみ処理を実行
     if [ -d "$dir" ]; then
-      perform_backup "$dir"
+      Perform "$dir"
+
+      # 終了コードを確認
+      if [ $? -ne 0 ]; then
+        Logger "ERROR" "Backup failed for directory: $dir"
+      fi
+
     fi
   done
 
-  log_message "INFO" "=== Backup completed for all directories in: $base_dir ==="
+  Logger "INFO" "=== Backup completed for all directories in: $dir ==="
 }
 
-BASE_DIR="/opt/kitsunebi/data"
+Perform() {
+  local dir="$1"
+  local backup_file="$dir/.backup"
 
-# Perform backup for directories
-backup_directories "$BASE_DIR"
+  Logger "INFO" "Starting backup for directory: $dir"
+
+  Check_file_exists "$backup_file" || {
+    Logger "INFO" "Skipping backup for directory: $dir"
+    return 0
+  }
+
+  # 環境変数を読み込む
+  Load_env || {
+    return 1
+  }
+
+  # 必要な環境変数が設定されているか確認
+  Check_env || {
+    return 1
+  }
+
+  # restic リポジトリが初期化されているか確認
+  Check_restic_initialized || {
+    return 1
+  }
+
+  # ディレクトリ名から tag を生成
+  local tag=$(Get_tag "$dir")
+
+  # バックアップを実行
+  if [ -f "$EXCLUDE_FILE" ]; then
+    restic backup --tag "$tag" --exclude-file="$EXCLUDE_FILE" "$dir"
+
+    # 終了コードを確認
+    if [ $? -eq 0 ]; then
+      Logger "INFO" "Backup completed for directory: $dir"
+    else
+      return 1
+    fi
+
+  else
+    # ファイルが存在しない場合は、失敗として処理を中断
+    Logger "ERROR" "Exclude file not found"
+    return 1
+  fi
+}
+
+Main "$BASE_DIR"
