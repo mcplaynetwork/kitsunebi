@@ -13,7 +13,7 @@ maxPlayers: 300
 
 # Server's data in servers list
 ping:
-  description: '{"text": "Limbo"}'
+  description: '{"text": "Waiting for connection..."}'
   version: 'MCPlayNetwork'
   # Return static protocol version number in ping result
   # By default, its -1 to return the client version, if it supported
@@ -53,13 +53,13 @@ brandName:
 # Message sends when player join to server
 joinMessage:
   enable: true
-  text: '{"text": "&eここは接続待機サーバです。一定時間で自動的に再接続されます。再接続されない場合は、一度切断してから再度接続してみてください。"}'
+  text: '{"text": "&8&l> &r&7ここは接続待機サーバです。接続先サーバの準備ができると自動的に接続されます。"}'
 
 # BossBar displays when player join to server
 # For 1.9+ clients
 bossBar:
   enable: true
-  text: '{"text": "ここは接続待機サーバです"}'
+  text: '{"text": "ここは接続待機サーバです。接続までお待ちください。"}'
   health: 1.0
   # Available colors: PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE
   color: RED
