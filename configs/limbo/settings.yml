@@ -9,7 +9,7 @@ bind:
 
 # Max amount of players can join to server
 # Set -1 to make it infinite
-maxPlayers: 100
+maxPlayers: 300
 
 # Server's data in servers list
 ping:
@@ -26,8 +26,8 @@ dimension: THE_END
 # Whether to display the player in the player list
 # For 1.16.5 clients, player list will be sent even if disabled, to avoid crash
 playerList:
-  enable: false
-  username: 'Limbo'
+  enable: true
+  username: 'MCPlayNetwork'
 
 # Whether to display header and footer in player list
 # For 1.8+ clients
@@ -71,7 +71,7 @@ bossBar:
 title:
   enable: true
   # Set title text value empty, if you need only subtitle
-  title: '{"text": "&c&lめんてなんすちゅう..."}'
+  title: '{"text": "&c&l接続待機中..."}'
   # Set subtitle text value empty, if you need only title
   subtitle: '{"text": "&3www.mcplay.biz"}'
   # Fade in time in ticks (1 sec = 20 ticks)
@@ -89,7 +89,7 @@ title:
 #  - BUNGEE_GUARD
 # Don't use secret if you not use MODERN type
 infoForwarding:
-  type: NONE
+  type: LEGACY
   secret: '<YOUR_SECRET_HERE>'
   tokens:
     - '<BUNGEE_GUARD_TOKEN>'
