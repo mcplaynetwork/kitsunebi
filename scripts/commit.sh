@@ -60,7 +60,7 @@ Main() {
   for dir in "$dir"/*; do
     # ディレクトリの場合のみ処理を実行
     if [ -d "$dir" ]; then
-     Perform "$dir"
+      Perform "$dir"
     fi
   done
 
@@ -78,7 +78,9 @@ Perform() {
     return 1
   }
 
-  cd "$dir" || exit 1
+  cd "$dir" || {
+    return 1
+  }
 
   # リモートリポジトリの URL
   local remote_url=$(git remote get-url origin)
