@@ -1,5 +1,6 @@
 #!/bin/bash
 
+SCRIPT_NAME=$(basename "$0")
 BASE_DIR="/opt/kitsunebi/data"
 ENV_FILE="/opt/kitsunebi/secrets/github.env"
 GIT_USERNAME=$(hostname)
@@ -39,7 +40,7 @@ Check_directory_exists() {
 Main() {
   local dir="$1"
 
-  Logger "INFO" "=== Starting commit for all directories in: $dir ==="
+  Logger "INFO" "=== Starting $SCRIPT_NAME ==="
 
   # ディレクトリが存在するか確認
   Check_directory_exists "$dir" || {
@@ -64,7 +65,7 @@ Main() {
     fi
   done
 
-  Logger "INFO" "=== Commit completed for all directories in: $dir ==="
+  Logger "INFO" "=== Finished $SCRIPT_NAME ==="
 }
 
 Perform() {

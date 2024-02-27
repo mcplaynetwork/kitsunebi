@@ -1,5 +1,6 @@
 #!/bin/bash
 
+SCRIPT_NAME=$(basename "$0")
 BASE_DIR="/opt/kitsunebi/data"
 ENV_FILE="/opt/kitsunebi/secrets/restic.env"
 EXCLUDE_FILE="/opt/kitsunebi/configs/scripts/backup-excludes"
@@ -68,7 +69,7 @@ Get_tag() {
 Main() {
   local dir="$1"
 
-  Logger "INFO" "=== Starting backup for all directories in: $dir ==="
+  Logger "INFO" "=== Starting $SCRIPT_NAME ==="
 
   # ディレクトリが存在するか確認
   Check_directory_exists "$dir" || {
@@ -89,7 +90,7 @@ Main() {
     fi
   done
 
-  Logger "INFO" "=== Backup completed for all directories in: $dir ==="
+  Logger "INFO" "=== Finished $SCRIPT_NAME ==="
 }
 
 Perform() {
