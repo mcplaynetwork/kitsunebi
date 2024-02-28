@@ -82,11 +82,17 @@ Main() {
 Perform() {
   local dir="$1"
   local dir_name=$(basename "$dir")
+  local sync_flag_file="$dir/.sync"
 
   local source_dir="~/dist/kitsunebi/$dir_name"
   local dest_dir="$dir/plugins"
 
   Logger "INFO" "Syncing jar files..."
+
+  Check_file_exists "$sync_flag_file" || {
+    Logger "INFO" "Skipping $dir_name"
+    return 0
+  }
 
   rsync -e "ssh -i $SSH_PRIVATE_KEY" -av --delete --exclude='*/' --include='*.jar' --include='list.txt' "$SSH_USER@$SSH_HOST:$source_dir/" "$dest_dir"
 
