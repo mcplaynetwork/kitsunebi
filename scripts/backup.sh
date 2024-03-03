@@ -48,7 +48,7 @@ Check_file_exists() {
 # END: common functions
 
 Check_restic_initialized() {
-  restic snapshots >/dev/null 2>&1
+  restic snapshots
 
   if [ $? -eq 0 ]; then
     Logger "INFO" "Restic repository is initialized"
