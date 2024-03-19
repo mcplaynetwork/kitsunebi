@@ -26,3 +26,11 @@ RESTIC_PASSWORD=
 ```plain
 GITHUB_PERSONAL_ACCESS_TOKEN=
 ```
+
+## sync.env
+
+```plain
+SSH_HOST=
+SSH_USER=
+SSH_PASSWORD=
+```
