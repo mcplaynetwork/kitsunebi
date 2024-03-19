@@ -98,7 +98,7 @@ Perform() {
     return 1
   }
 
-  sshpass -p "$SSH_PASSWORD" rsync -av --delete --exclude='*/' --include='*.jar' --include='list.txt' "$SSH_USER@$SSH_HOST:$source_dir/" "$dest_dir"
+  sshpass -p "$SSH_PASSWORD" rsync -av --delete --exclude='*/' --include='*' "$SSH_USER@$SSH_HOST:$source_dir/" "$dest_dir"
 
   # 終了コードを確認
   if [ $? -eq 0 ]; then
