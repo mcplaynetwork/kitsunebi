@@ -1,0 +1,22 @@
+version: '3.8'
+
+name: backend-vanilla-1
+
+services:
+  backend:
+    image: itzg/minecraft-server:latest
+    container_name: backend-vanilla-1
+    restart: unless-stopped
+    user: 1001:1001
+    environment:
+      - TZ=Asia/Tokyo
+    env_file:
+      - ./enviroments/backend-vanilla-1.env
+      - ./enviroments/hosts.env
+      - ./secrets/mysql.env
+    ports:
+      - 25571:25565
+    volumes:
+      - ./configs/backend-vanilla-1:/config
+      - ./plugins/backend-vanilla-1:/plugins
+      - ./data/backend-vanilla-1:/data
