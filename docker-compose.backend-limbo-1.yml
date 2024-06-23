@@ -1,6 +1,6 @@
-version: "3.8"
+version: '3.8'
 
-name: limbo
+name: backend-limbo-1
 
 services:
   backend:
@@ -12,8 +12,6 @@ services:
       - TZ=Asia/Tokyo
     env_file:
       - ./enviroments/limbo.env
-    ports:
-      - 25565:65535
     volumes:
       - ./configs/limbo:/config
       - ./data/limbo:/data
