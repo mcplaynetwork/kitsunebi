@@ -12,6 +12,8 @@ services:
       - TZ=Asia/Tokyo
     env_file:
       - ./enviroments/limbo.env
+    ports:
+      - 65535:65535
     volumes:
       - ./configs/limbo:/config
       - ./data/limbo:/data
